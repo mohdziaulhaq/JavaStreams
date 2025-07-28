@@ -1,18 +1,31 @@
-## Getting Started
+# JavaStreams 🚀
 
-Welcome to the VS Code Java world. Here is a guideline to help you get started to write Java code in Visual Studio Code.
+A collection of examples and notes showcasing the power of the **Java Stream API** — from basic transformations to performance-efficient operations using primitive streams.
 
-## Folder Structure
+---
 
-The workspace contains two folders by default, where:
+## 📘 What This Repo Covers
 
-- `src`: the folder to maintain sources
-- `lib`: the folder to maintain dependencies
+- Understanding the difference between `map()` and `mapToInt()`
+- Using `sum()`, `average()`, `min()`, etc. with streams
+- Best practices for efficient data processing with Java Streams
 
-Meanwhile, the compiled output files will be generated in the `bin` folder by default.
+---
 
-> If you want to customize the folder structure, open `.vscode/settings.json` and update the related settings there.
+## 🔄 `map()` vs `mapToInt()`
 
-## Dependency Management
+| Feature          | `map()`                        | `mapToInt()`                   |
+|------------------|--------------------------------|--------------------------------|
+| Return Type      | `Stream<R>`                    | `IntStream`                    |
+| Handles Primitives | ❌ No (uses boxed `Integer`)   | ✅ Yes (`int`)                 |
+| Supports `.sum()` | ❌ No (need Collectors or reduce) | ✅ Yes (direct `.sum()`)     |
+| Performance      | Slower (autoboxing)            | Faster (primitive ops)         |
 
-The `JAVA PROJECTS` view allows you to manage your dependencies. More details can be found [here](https://github.com/microsoft/vscode-java-dependency#manage-dependencies).
+### 🔹 `map()` Example
+
+```java
+List<String> names = List.of("Alice", "Bob");
+
+List<Integer> lengths = names.stream()
+    .map(name -> name.length())  // Stream<Integer>
+    .collect(Collectors.toList());
